@@ -36,6 +36,10 @@ RUN if [ "${INSTALL_AZURE_CLI}" = "true" ]; then bash /tmp/library-scripts/azcli
     fi \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y uuid-runtime \
+    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
 # Install Terraform, tflint
 ARG TERRAFORM_VERSION=0.12.16
 ARG TFLINT_VERSION=0.8.2
