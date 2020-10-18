@@ -22,7 +22,8 @@
 		"hashicorp.terraform",
 		"ms-vscode.vscode-node-azure-pack",
 		"editorconfig.editorconfig",
-		"ms-kubernetes-tools.vscode-kubernetes-tools"
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"mhutchie.git-graph"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
