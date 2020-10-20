@@ -72,11 +72,24 @@ function storage_replica {
 storage_replica ${LOCATION_PRIMARY}
 storage_replica ${LOCATION_BACKUP}
 
-az storage account or-policy create \
+# Create a policy on the destination account
+POLICY_ID=$(
+  az storage account or-policy create \
     --resource-group ${RGS[${LOCATION_BACKUP}]} \
     --account-name ${ACCOUNTS[${LOCATION_BACKUP}]} \
     --source-account ${ACCOUNTS[${LOCATION_PRIMARY}]} \
-    --destination-account ${ACCOUNTS[${LOCATION_BACKUP}]} \
     --source-container ${TAG} \
     --destination-container ${TAG} \
-    --min-creation-time "1601-01-01T00:00:00Z"
+    --min-creation-time "1601-01-01T00:00:00Z" \
+    --query "policyId" \
+    --output tsv
+)
+
+# Create the same policy on the source account
+az storage account or-policy show \
+    --resource-group ${RGS[${LOCATION_BACKUP}]} \
+    --account-name ${ACCOUNTS[${LOCATION_BACKUP}]} \
+    --policy-id ${POLICY_ID} |
+    az storage account or-policy create --resource-group ${RGS[${LOCATION_PRIMARY}]} \
+    --account-name ${ACCOUNTS[${LOCATION_PRIMARY}]} \
+    --policy "@-"
