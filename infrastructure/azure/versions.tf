@@ -17,10 +17,8 @@ terraform {
   }
 
   backend "azurerm" {
-    resource_group_name  = "rg-terraform-backend-c8c"
-    storage_account_name = "saterraformc8cdeec275814"
-    container_name       = "terraform"
-    key                  = "aks-with-nginx.tfstate"
+    container_name = "terraform"
+    key            = "aks-with-nginx.tfstate"
   }
 }
 

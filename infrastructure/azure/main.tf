@@ -5,3 +5,8 @@ locals {
     Environment = "Test"
   }
 }
+
+resource "random_pet" "server" {
+  keepers = {
+  }
+}

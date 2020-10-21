@@ -93,3 +93,15 @@ az storage account or-policy show \
     az storage account or-policy create --resource-group ${RGS[${LOCATION_PRIMARY}]} \
     --account-name ${ACCOUNTS[${LOCATION_PRIMARY}]} \
     --policy "@-"
+
+# Terraform init script
+tee ti.sh > /dev/null \
+<< EOF 
+#!/usr/bin/env bash
+set -euox pipefail
+
+terraform init \
+  -backend-config="resource_group_name=${RGS[${LOCATION_PRIMARY}]}" \
+  -backend-config="storage_account_name=${ACCOUNTS[${LOCATION_PRIMARY}]}"
+EOF
+chmod +x ti.sh

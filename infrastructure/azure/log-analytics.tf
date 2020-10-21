@@ -7,7 +7,3 @@ resource "azurerm_log_analytics_workspace" "insights" {
   tags                = local.tags
 }
 
-resource "random_pet" "server" {
-  keepers = {
-  }
-}
