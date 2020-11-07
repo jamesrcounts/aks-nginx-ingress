@@ -19,11 +19,15 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"hashicorp.terraform",
-		"ms-vscode.vscode-node-azure-pack",
 		"editorconfig.editorconfig",
+		"hashicorp.terraform",
+		"mhutchie.git-graph",
+		"ms-azuretools.vscode-azureterraform",
+		"ms-azuretools.vscode-docker",
 		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"mhutchie.git-graph"
+		"ms-vscode.azurecli",
+		"ms-vscode.vscode-node-azure-pack",
+		"tyriar.sort-lines"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
