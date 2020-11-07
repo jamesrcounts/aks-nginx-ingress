@@ -16,10 +16,13 @@ terraform {
     }
   }
 
-  # backend "azurerm" {
-  #   container_name = "terraform"
-  #   key            = "aks-with-nginx.tfstate"
-  # }
+  backend "remote" {
+    organization = "jamesrcounts"
+
+    workspaces {
+      name = "aks-nginx-ingress"
+    }
+  }
 }
 
 provider azurerm {
