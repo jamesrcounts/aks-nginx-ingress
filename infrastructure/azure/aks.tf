@@ -37,7 +37,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     max_pods              = 100
     name                  = "system"
-    node_count            = 1
     orchestrator_version  = data.azurerm_kubernetes_service_versions.current.latest_version
     os_disk_size_gb       = 1024
     type                  = "VirtualMachineScaleSets"

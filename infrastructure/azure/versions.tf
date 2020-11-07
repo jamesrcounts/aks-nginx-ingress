@@ -16,10 +16,10 @@ terraform {
     }
   }
 
-  backend "azurerm" {
-    container_name = "terraform"
-    key            = "aks-with-nginx.tfstate"
-  }
+  # backend "azurerm" {
+  #   container_name = "terraform"
+  #   key            = "aks-with-nginx.tfstate"
+  # }
 }
 
 provider azurerm {
