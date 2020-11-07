@@ -1,6 +1,6 @@
 locals {
-  project = "test"
-
+  project          = "test"
+  aks_cluster_name = "aks-${local.project}"
   tags = {
     Environment = "Test"
   }

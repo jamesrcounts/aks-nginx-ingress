@@ -1,5 +1,6 @@
 resource "azuread_group" "aks_administrators" {
-  name = "aks-administrators"
+  name        = "${local.aks_cluster_name}-administrators"
+  description = "Kubernetes administrators for the ${local.aks_cluster_name} cluster."
 }
 
 resource "azuread_group_member" "aks_administrator" {
