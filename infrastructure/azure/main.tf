@@ -1,6 +1,6 @@
 locals {
-  project          = "test"
-  aks_cluster_name = "aks-${local.project}"
+  project          = "aks-nginx-ingress"
+  aks_cluster_name = local.project
   tags = {
     Environment = "Test"
   }

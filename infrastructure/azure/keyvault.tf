@@ -4,7 +4,7 @@ resource "azurerm_key_vault" "secret_provider" {
   enabled_for_disk_encryption     = false
   enabled_for_template_deployment = false
   location                        = azurerm_resource_group.main.location
-  name                            = "kv-${local.project}-${random_pet.server.id}"
+  name                            = "kv-${local.project}"
   resource_group_name             = azurerm_resource_group.main.name
   sku_name                        = "standard"
   soft_delete_enabled             = true
