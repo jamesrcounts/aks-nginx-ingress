@@ -1,0 +1,8 @@
+keyvaultName: ""
+resourceGroup: ""
+subscriptionId: ""
+tenantId: ""
+
+secrets: []
+# - name: example-secret-id
+#   type: secret
