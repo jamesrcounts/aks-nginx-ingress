@@ -10,8 +10,8 @@ resource "azurerm_role_assignment" "key_vault_administrator" {
   scope                = azurerm_resource_group.main.id
 }
 
-# resource "azurerm_role_assignment" "key_vault_administrator" {
-#   principal_id         = "b55f6ee9-3a4b-42bf-ad67-d02c4632a010"
-#   role_definition_name = "Key Vault Administrator (preview)"
-#   scope                = azurerm_resource_group.primary.id
-# }
+resource "azurerm_role_assignment" "aks_managed_identity_operator" {
+  principal_id         = local.aks_system_assigned_principal_id
+  role_definition_name = "Managed Identity Operator"
+  scope                = azurerm_resource_group.main.id
+}
