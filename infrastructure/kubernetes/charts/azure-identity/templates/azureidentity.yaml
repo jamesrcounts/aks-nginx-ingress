@@ -4,5 +4,5 @@ metadata:
     name: {{ include "azure-identity.fullname" . }}
 spec:
     type: 0
-    resourceID: {{ .Values.userAssignedIdentityId }}
-    clientID: {{ .Values.userAssignedIdentityClientId }}
+    resourceID: {{ .Values.userAssignedIdentity.id }}
+    clientID: {{ .Values.userAssignedIdentity.clientId }}
