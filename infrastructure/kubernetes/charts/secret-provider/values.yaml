@@ -6,3 +6,12 @@ tenantId: ""
 secrets: []
 # - name: example-secret-id
 #   type: secret
+
+secretObjects: {}
+# - secretName: ingress-tls-csi
+#   type: kubernetes.io/tls
+#   data: 
+#   - objectName: ingresscert
+#     key: tls.key
+#   - objectName: ingresscert
+#   key: tls.crt
