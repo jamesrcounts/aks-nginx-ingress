@@ -33,12 +33,34 @@ resource "azurerm_key_vault_secret" "storage_connection_string_secondary" {
   tags         = local.tags
 }
 
-# resource "azurerm_key_vault_secret" "redis_access_key_primary" {
-#   name         = "redis-access-key-primary"
-#   value        = azurerm_redis_cache.cache.primary_access_key
-#   key_vault_id = azurerm_key_vault.credential_proxy.id
-#   tags         = local.tags
-# }
+resource "azurerm_key_vault_certificate" "ingress_tls_pem" {
+  key_vault_id = azurerm_key_vault.secret_provider.id
+  name         = "ingress-tls"
+
+  certificate {
+    contents = filebase64("./certificates/ingress-tls.pem")
+    password = ""
+  }
+
+  certificate_policy {
+    issuer_parameters {
+      name = "Self"
+    }
+
+    key_properties {
+      exportable = true
+      key_size   = 2048
+      key_type   = "RSA"
+      reuse_key  = false
+    }
+
+    secret_properties {
+      content_type = "application/x-pem-file"
+    }
+  }
+
+  tags = local.tags
+}
 
 # resource "azurerm_key_vault_secret" "redis_access_key_secondary" {
 #   name         = "redis-access-key-secondary"
