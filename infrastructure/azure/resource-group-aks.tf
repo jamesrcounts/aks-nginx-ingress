@@ -1,11 +1,11 @@
 resource "azurerm_role_assignment" "aks_nodes_managed_identity_operator" {
-  principal_id         = local.aks_system_assigned_principal_id
+  principal_id         = local.aks_kublet_identity_object_id
   role_definition_name = "Managed Identity Operator"
   scope                = local.node_resource_group_id
 }
 
 resource "azurerm_role_assignment" "aks_nodes_virtual_machine_contributor" {
-  principal_id         = local.aks_system_assigned_principal_id
+  principal_id         = local.aks_kublet_identity_object_id
   role_definition_name = "Virtual Machine Contributor"
   scope                = local.node_resource_group_id
 }

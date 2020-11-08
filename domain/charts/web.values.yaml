@@ -1,3 +1,6 @@
+azureIdentityName: aks-secret-operator-azure-identity
+secretProviderClassName: keyvault-secrets-class-secret-provider
+
 ingress:
   enabled: true
   annotations: 

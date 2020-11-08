@@ -14,6 +14,11 @@ resource "helm_release" "azure_identity_secret_operator" {
     name  = "userAssignedIdentity.clientId"
     value = data.azurerm_user_assigned_identity.aks_secret_operator.client_id
   }
+
+  set {
+    name  = "userAssignedIdentity.tenantId"
+    value = data.azurerm_client_config.current.tenant_id
+  }
 }
 
 data "azurerm_user_assigned_identity" "aks_secret_operator" {

@@ -6,3 +6,4 @@ spec:
     type: 0
     resourceID: {{ .Values.userAssignedIdentity.id }}
     clientID: {{ .Values.userAssignedIdentity.clientId }}
+    tenantID: {{ .Values.userAssignedIdentity.tenantID }}
