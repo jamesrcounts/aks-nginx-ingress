@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-chmod 400 ~/.kube.config
+chmod 400 ~/.kube/config
 
 RENDER=$(mktemp)
 helm template --values web.values.yaml web ./webserver/ > ${RENDER}

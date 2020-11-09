@@ -11,4 +11,7 @@ ingress:
     - host: "www.olive-steel.com"
       paths: 
         - /
-  tls: []
+  tls:
+    - secretName: ingress-tls-csi
+      hosts:
+       - www.olive-steel.com
