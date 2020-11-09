@@ -78,8 +78,9 @@ controller:
   ingressClass: nginx
 
   # labels to add to the pod container metadata
-  podLabels: {}
-  #  key: value
+  podLabels:
+    aadpodidbinding: aks-secret-operator-azure-identity
+
 
   ## Security Context policies for controller pods
   ##
@@ -154,9 +155,7 @@ controller:
   ## Labels to be added to the controller Deployment or DaemonSet
   ##
   labels: {}
-  #  keel.sh/policy: patch
-  #  keel.sh/trigger: poll
-
+  #  aadpodidbinding: aks-secret-operator-azure-identity
 
   # The update strategy to apply to the Deployment or DaemonSet
   ##
@@ -405,15 +404,18 @@ controller:
   #    - name: copy-portal-skins
   #      mountPath: /srv/var/lib/lemonldap-ng/portal/skins
 
-  extraVolumeMounts: []
-  ## Additional volumeMounts to the controller main container.
-  #  - name: copy-portal-skins
-  #   mountPath: /var/lib/lemonldap-ng/portal/skins
+  extraVolumeMounts: 
+    - name: secrets-store-inline
+      mountPath: "/mnt/secrets-store"
+      readOnly: true
 
-  extraVolumes: []
-  ## Additional volumes to the controller pod.
-  #  - name: copy-portal-skins
-  #    emptyDir: {}
+  extraVolumes:
+    - name: secrets-store-inline
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "keyvault-cert-class-secret-provider"
 
   extraInitContainers: []
   ## Containers, which are run before the app containers are started.
@@ -613,7 +615,6 @@ defaultBackend:
 
   # labels to add to the pod container metadata
   podLabels: {}
-  #  key: value
 
   ## Node labels for default backend pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
