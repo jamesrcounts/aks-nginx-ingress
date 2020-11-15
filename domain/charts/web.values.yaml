@@ -1,5 +1,4 @@
 azureIdentityName: aks-secret-operator-azure-identity
-secretProviderClassName: keyvault-secrets-class-secret-provider
 
 ingress:
   enabled: true
@@ -15,3 +14,28 @@ ingress:
     - secretName: ingress-tls-csi
       hosts:
        - www.olive-steel.com
+
+# Key Vault secret provider
+keyvaultName: kv-aks-nginx-ingress
+resourceGroup: rg-aks-nginx-ingress
+secrets:
+  - name: storage-connection-string-primary
+    type: secret
+  - name: storage-connection-string-secondary
+    type: secret
+  - name: mit-license-base64
+    type: secret
+
+
+
+
+#   set {
+#     name  = "subscriptionId"
+#     value = data.azurerm_client_config.current.subscription_id
+#   }
+
+#   set {
+#     name  = "tenantId"
+#     value = data.azurerm_client_config.current.tenant_id
+#   }
+# }
