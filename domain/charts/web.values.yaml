@@ -26,3 +26,9 @@ secrets:
   - name: mit-license-base64
     type: secret
     encoding: base64
+  - name: mit-license-base64-nl
+    type: secret
+    encoding: base64
+  # - name: mit-license-base64-ic
+  #   type: secret
+  #   encoding: base64

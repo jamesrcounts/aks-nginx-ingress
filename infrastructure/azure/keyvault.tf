@@ -68,3 +68,17 @@ resource "azurerm_key_vault_secret" "mit_license" {
   key_vault_id = azurerm_key_vault.secret_provider.id
   tags         = local.tags
 }
+
+resource "azurerm_key_vault_secret" "mit_license_nl" {
+  name         = "mit-license-base64-nl"
+  value        = file("./certificates/LICENSE-nl.b64")
+  key_vault_id = azurerm_key_vault.secret_provider.id
+  tags         = local.tags
+}
+
+resource "azurerm_key_vault_secret" "mit_license_ic" {
+  name         = "mit-license-base64-ic"
+  value        = file("./certificates/LICENSE-ic.b64")
+  key_vault_id = azurerm_key_vault.secret_provider.id
+  tags         = local.tags
+}
