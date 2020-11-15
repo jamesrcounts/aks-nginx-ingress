@@ -62,9 +62,9 @@ resource "azurerm_key_vault_certificate" "ingress_tls_pem" {
   tags = local.tags
 }
 
-# resource "azurerm_key_vault_secret" "redis_access_key_secondary" {
-#   name         = "redis-access-key-secondary"
-#   value        = azurerm_redis_cache.cache.secondary_access_key
-#   key_vault_id = azurerm_key_vault.credential_proxy.id
-#   tags         = local.tags
-# }
+resource "azurerm_key_vault_secret" "mit_license" {
+  name         = "mit-license-base64"
+  value        = file("./certificates/LICENSE.b64")
+  key_vault_id = azurerm_key_vault.secret_provider.id
+  tags         = local.tags
+}
