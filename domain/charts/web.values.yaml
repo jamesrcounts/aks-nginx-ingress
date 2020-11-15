@@ -25,17 +25,4 @@ secrets:
     type: secret
   - name: mit-license-base64
     type: secret
-
-
-
-
-#   set {
-#     name  = "subscriptionId"
-#     value = data.azurerm_client_config.current.subscription_id
-#   }
-
-#   set {
-#     name  = "tenantId"
-#     value = data.azurerm_client_config.current.tenant_id
-#   }
-# }
+    encoding: base64
