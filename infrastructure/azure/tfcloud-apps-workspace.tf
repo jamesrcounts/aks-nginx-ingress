@@ -1,5 +1,5 @@
 resource "tfe_workspace" "k8s" {
-  name         = "${local.resource_group_name}-k8s"
+  name         = "${local.project}-k8s"
   organization = "jamesrcounts"
 }
 
