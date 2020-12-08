@@ -12,9 +12,12 @@ ARG UPGRADE_PACKAGES="false"
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+COPY library-scripts/common-debian.sh /tmp/library-scripts/
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" \ 
     && apt-get install -y graphviz \
+                          build-essential \
+                          uuid-runtime \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # [Option] Install Azure CLI
@@ -27,6 +30,9 @@ ARG NODE_VERSION="lts/*"
 ENV NVM_DIR=/usr/local/share/nvm
 ENV NVM_SYMLINK_CURRENT=true \
     PATH=${NVM_DIR}/current/bin:${PATH}
+COPY library-scripts/azcli-debian.sh /tmp/library-scripts/
+COPY library-scripts/node-debian.sh /tmp/library-scripts/
+COPY library-scripts/docker-debian.sh  /tmp/library-scripts/
 RUN if [ "${INSTALL_AZURE_CLI}" = "true" ]; then bash /tmp/library-scripts/azcli-debian.sh; fi \
     && if [ "${INSTALL_NODE}" = "true" ]; then bash /tmp/library-scripts/node-debian.sh "${NVM_DIR}" "${NODE_VERSION}" "${USERNAME}"; fi \
     && if [ "${INSTALL_DOCKER}" = "true" ]; then \
@@ -36,13 +42,10 @@ RUN if [ "${INSTALL_AZURE_CLI}" = "true" ]; then bash /tmp/library-scripts/azcli
     fi \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y uuid-runtime \
-    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
-
 # Install Terraform, tflint
 ARG TERRAFORM_VERSION=0.12.16
 ARG TFLINT_VERSION=0.8.2
+COPY library-scripts/terraform-debian.sh  /tmp/library-scripts/
 RUN bash /tmp/library-scripts/terraform-debian.sh "${TERRAFORM_VERSION}" "${TFLINT_VERSION}" \
     && rm -rf /tmp/library-scripts
 
@@ -52,6 +55,9 @@ RUN curl -sSL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernete
 
 # Install Helm
 RUN curl -s https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash -
+
+# Some people have git config pointed at a different gpg location
+RUN ln -s /usr/bin/gpg /usr/local/bin/gpg
 
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
