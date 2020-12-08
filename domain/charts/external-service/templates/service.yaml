@@ -5,7 +5,10 @@ metadata:
   labels:
     {{- include "external-service.labels" . | nindent 4 }}
 spec:
-  clusterIP: None
+ type: ClusterIP
+ ports:
+ - port: {{ .Values.service.port }}
+   targetPort: {{ .Values.service.port }}
 ---
 apiVersion: v1
 kind: Endpoints
