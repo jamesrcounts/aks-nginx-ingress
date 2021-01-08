@@ -1,7 +1,12 @@
 default: all
 
-all: azure
+all: azure kubernetes
 
 azure:
 	cd infrastructure/azure && \
 		make
+
+kubernetes:
+	cd infrastructure/kubernetes && \
+		make
+
