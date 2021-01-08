@@ -7,16 +7,9 @@ resource "azurerm_key_vault" "secret_provider" {
   name                            = "kv-${local.project}"
   resource_group_name             = azurerm_resource_group.main.name
   sku_name                        = "standard"
-  soft_delete_enabled             = true
   soft_delete_retention_days      = 30
   tenant_id                       = data.azurerm_client_config.current.tenant_id
   tags                            = local.tags
-
-  # contact {
-  #   email = "joe@olive-steel.com"
-  #   name  = "Joe Secrets"
-  #   phone = "(555) 555-5555"
-  # }
 }
 
 resource "azurerm_key_vault_secret" "storage_connection_string_primary" {
