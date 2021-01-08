@@ -348,7 +348,7 @@ controller:
     # healthCheckNodePort: 0
 
     ports:
-      http: 80
+      # http: 80
       https: 443
 
     targetPorts:

@@ -1,6 +1,5 @@
 locals {
   aks_diagnostics = sort([
-    "API Server (PREVIEW)",
     "cluster-autoscaler",
     "guard",
     "kube-apiserver",
