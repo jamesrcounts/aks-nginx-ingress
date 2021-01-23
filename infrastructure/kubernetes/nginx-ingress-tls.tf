@@ -1,8 +1,10 @@
 resource "helm_release" "keyvault_certs" {
   depends_on = [helm_release.secrets_store_provider]
-  name       = "keyvault-cert-class"
-  repository = "charts"
+
   chart      = "secret-provider"
+  name       = "keyvault-cert-class"
+  namespace  = kubernetes_namespace.platform.metadata.0.name
+  repository = "charts"
 
   values = [local.keyvault_cert_values]
 
