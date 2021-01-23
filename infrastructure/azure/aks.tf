@@ -86,7 +86,6 @@ data "azurerm_kubernetes_service_versions" "current" {
 }
 
 # TODO
-# disk_encryption_set_id 
 # private_cluster_enabled 
 # network_profile
 # https://docs.microsoft.com/en-us/azure/security-center/security-center-pricing
