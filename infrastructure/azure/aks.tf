@@ -1,15 +1,16 @@
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                            = local.aks_cluster_name
-  location                        = azurerm_resource_group.main.location
-  resource_group_name             = azurerm_resource_group.main.name
-  dns_prefix                      = local.project
-  kubernetes_version              = data.azurerm_kubernetes_service_versions.current.latest_version
-  node_resource_group             = "${azurerm_resource_group.main.name}-aks"
-  sku_tier                        = "Free"
-  api_server_authorized_ip_ranges = []
-  enable_pod_security_policy      = false
-  private_cluster_enabled         = false
   # private_link_enabled            = false
+  api_server_authorized_ip_ranges = []
+  disk_encryption_set_id          = azurerm_disk_encryption_set.des.id
+  dns_prefix                      = local.project
+  enable_pod_security_policy      = false
+  kubernetes_version              = data.azurerm_kubernetes_service_versions.current.latest_version
+  location                        = azurerm_resource_group.main.location
+  name                            = local.aks_cluster_name
+  node_resource_group             = "${azurerm_resource_group.main.name}-aks"
+  private_cluster_enabled         = false
+  resource_group_name             = azurerm_resource_group.main.name
+  sku_tier                        = "Free"
 
   addon_profile {
     aci_connector_linux { enabled = false }
@@ -62,22 +63,22 @@ resource "azurerm_kubernetes_cluster" "aks" {
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "user" {
-  name                  = "user"
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
-  vm_size               = "Standard_DS2_v2"
-  node_count            = 1
   availability_zones    = [1, 2, 3]
   enable_auto_scaling   = true
   enable_node_public_ip = false
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
+  max_count             = 3
   max_pods              = 100
+  min_count             = 1
   mode                  = "User"
+  name                  = "user"
+  node_count            = 1
   orchestrator_version  = data.azurerm_kubernetes_service_versions.current.latest_version
   os_disk_size_gb       = 1024
   os_type               = "Linux"
   priority              = "Regular"
-  max_count             = 3
-  min_count             = 1
   tags                  = local.tags
+  vm_size               = "Standard_DS2_v2"
 }
 
 data "azurerm_kubernetes_service_versions" "current" {

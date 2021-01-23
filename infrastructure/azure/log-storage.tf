@@ -11,6 +11,7 @@ resource "azurerm_storage_account" "diagnostics" {
   allow_blob_public_access  = false
   is_hns_enabled            = false
   large_file_share_enabled  = false
+  tags                      = local.tags
 
   identity {
     type = "SystemAssigned"
@@ -31,7 +32,6 @@ resource "azurerm_storage_account" "diagnostics" {
     virtual_network_subnet_ids = []
   }
 
-  tags = local.tags
 }
 
 #TODO

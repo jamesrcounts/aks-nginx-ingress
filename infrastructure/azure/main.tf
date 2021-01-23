@@ -7,7 +7,7 @@ locals {
   project                          = "aks-nginx-ingress"
 
   tags = {
-    Environment = "Test"
+    project = local.project
   }
 }
 
