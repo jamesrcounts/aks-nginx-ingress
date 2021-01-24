@@ -1,7 +1,8 @@
 resource "helm_release" "azure_identity_secret_operator" {
-  name       = "aks-secret-operator"
-  repository = "charts"
   chart      = "azure-identity"
+  name       = "aks-secret-operator"
+  namespace  = kubernetes_namespace.platform.metadata.0.name
+  repository = "charts"
 
   values = []
 
