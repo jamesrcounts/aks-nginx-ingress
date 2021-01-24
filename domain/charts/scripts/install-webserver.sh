@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-NAMESPACE=${1}
+CUSTOMER=${1}
 IDS=($(az account show --output tsv --query "[id, tenantId]"))
 
 helm upgrade \
-    --values web.values.yaml \
+    --values ${CUSTOMER}.values.yaml \
     --set subscriptionId=${IDS[0]} \
     --set tenantId=${IDS[1]} \
     --install \
-    --namespace ${NAMESPACE} \
+    --namespace ${CUSTOMER} \
     web \
     ./webserver/

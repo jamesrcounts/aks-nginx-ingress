@@ -1,0 +1,45 @@
+azureIdentityName: aks-secret-operator-azure-identity
+
+ingress:
+  enabled: true
+  annotations: 
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/server-snippet: |
+      large_client_header_buffers     32 128k;
+  hosts:
+    - host: "www.olive-steel.com"
+      paths: 
+        - /
+  tls:
+    - secretName: ingress-tls-csi
+      hosts:
+       - www.olive-steel.com
+
+# Key Vault secret provider
+keyvaultName: kv-aks-nginx-ingress
+resourceGroup: rg-aks-nginx-ingress
+secrets:
+  - name: storage-connection-string-primary
+    type: secret
+  - name: storage-connection-string-secondary
+    type: secret
+  - name: mit-license-base64
+    type: secret
+    encoding: base64
+  - name: mit-license-base64-nl
+    type: secret
+    encoding: base64
+  # - name: mit-license-base64-ic
+  #   type: secret
+  #   encoding: base64
+  - name: ingress-tls
+    type: secret
+
+secretObjects: 
+- secretName: ingress-tls-csi
+  type: kubernetes.io/tls
+  data: 
+  - objectName: ingress-tls
+    key: tls.key
+  - objectName: ingress-tls
+    key: tls.crt

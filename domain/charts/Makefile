@@ -10,3 +10,6 @@ es_install: permissions
 
 customer1: permissions
 	bash ./scripts/install-webserver.sh "customer1"
+
+customer2: permissions
+	bash ./scripts/install-webserver.sh "customer2"

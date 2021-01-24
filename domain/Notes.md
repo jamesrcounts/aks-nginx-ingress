@@ -1,0 +1,1 @@
+* Hardcoded the identity binding to go into the platform namespace where the identity is deployed.
